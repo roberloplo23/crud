@@ -1,3 +1,8 @@
+@if(Session::has('Mensaje')){{
+    Session::get('Mensaje')
+}}
+@endif
+
 <a href="{{url('empleados/create')}}">Agregar Empleado</a>
 
 <table class="table table-light">
