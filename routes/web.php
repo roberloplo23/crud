@@ -11,7 +11,7 @@ Route::get('/', function () {
 // Middleware de autenticación para proteger las rutas CRUD
 Route::middleware('auth')->group(function () {
     // Rutas CRUD protegidas para empleados
-    Route::resource('home', EmpleadosController::class);
+    Route::resource('empleados', EmpleadosController::class);
 }); // <- Aquí cerramos el grupo de rutas
 
 Auth::routes(['reset' => false]);
