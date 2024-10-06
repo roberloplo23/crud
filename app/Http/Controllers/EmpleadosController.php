@@ -12,7 +12,10 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-        return view('empleados.index');
+        $datos['empleados']=Empleados::paginate(5);
+
+
+        return view('empleados.index',$datos);
         //
     }
 
@@ -31,7 +34,14 @@ class EmpleadosController extends Controller
     public function store(Request $request)
     {
         $datosEmpleado=request()->all();
-        return response()->json($datosEmpleado);
+
+        $datosEmpleado=request()->except('_token');
+
+        if($request->hasFile('Foto')){
+            $datosEmpleado['Foto']=$request->file('Foto')->store('uploads','public');
+        }
+
+        Empleados::insert($datosEmpleado);
         //
     }
 
@@ -46,8 +56,11 @@ class EmpleadosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Empleados $empleados)
+    public function edit($id)
     {
+        $empleado=Empleados::findOrFail($id);
+
+        return view('empleados.edit',compact('empleado'));
         //
     }
 
@@ -62,8 +75,11 @@ class EmpleadosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Empleados $empleados)
+    public function destroy($id)
     {
+        Empleados::destroy($id);
+
+        return redirect('empleados');
         //
     }
 }
