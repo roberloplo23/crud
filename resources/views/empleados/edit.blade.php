@@ -1,4 +1,7 @@
-<form action="" method="post">
+<form action="{{url('/empleados/'.$empleado->id)}}" method="post" enctype="multipart/form-data">
+{{ csrf_field() }}
+{{method_field('PATCH')}}
+
     <label for="Nombre">{{'Nombre'}}</label>
     <input type="text" name="Nombre" id="Nombre" value="{{$empleado->Nombre}}">
     <br/>
@@ -16,10 +19,13 @@
     <br/>
     
     <label for="Foto">{{'Foto'}}</label>
-    <br>
-    value={{$empleado->Foto}}
-    <br>
+    <br/>
+
+    <img src="{{asset('storage').'/'.$empleado->Foto}}" alt="" width="150">
+    <br/>
+    
     <input type="file" name="Foto" id="Foto" value="">
     <br/>
+    <input type="submit" value="Editar">
 
 </form>
