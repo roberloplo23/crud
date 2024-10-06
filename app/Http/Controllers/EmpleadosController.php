@@ -43,6 +43,9 @@ class EmpleadosController extends Controller
         }
 
         Empleados::insert($datosEmpleado);
+
+        return redirect('empleados');
+
         //
     }
 
@@ -99,6 +102,16 @@ class EmpleadosController extends Controller
      */
     public function destroy($id)
     {
+
+        $empleado=Empleados::findOrFail($id);
+
+            $oldPhotoPath = public_path('storage/' . $empleado->Foto); //
+
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath); 
+                Empleados::destroy($id);
+            }
+
         Empleados::destroy($id);
 
         return redirect('empleados');

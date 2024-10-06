@@ -22,5 +22,7 @@
 <br/>
 
 <input type="submit" value="Agregar">
+<a href="{{url('empleados')}}">Regresar</a>
+
 
 </form>
