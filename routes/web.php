@@ -12,8 +12,11 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     // Rutas CRUD protegidas para empleados
     Route::resource('empleados', EmpleadosController::class);
-}); // <- Aquí cerramos el grupo de rutas
+
+    // Redirigir la ruta '/home' a '/empleados'
+    Route::get('/home', function () {
+        return redirect()->route('empleados.index');
+    })->name('home');
+});
 
 Auth::routes(['reset' => false]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
